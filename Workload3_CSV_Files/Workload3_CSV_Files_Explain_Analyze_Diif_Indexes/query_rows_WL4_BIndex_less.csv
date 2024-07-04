@@ -1,0 +1,67 @@
+Query Number,Operator,Planned Rows,Actual Rows
+Q1,Gather,2,172
+Q1,->  Parallel Seq Scan on json_montoldre_row,1,57
+Q1,Total,3,229
+Q2,Gather,2,962
+Q2,->  Parallel Seq Scan on json_montoldre_row,1,321
+Q2,Total,3,1283
+Q3,Gather,7,22070
+Q3,->  Parallel Seq Scan on json_montoldre_row,3,7357
+Q3,Total,10,29427
+Q4,Sort,2,1306
+Q4,->  Gather,2,1306
+Q4,->  Parallel Seq Scan on json_montoldre_row,1,435
+Q4,Total,5,3047
+Q5,Sort,2,12356
+Q5,->  Gather,2,12356
+Q5,->  Parallel Seq Scan on json_montoldre_row,1,4119
+Q5,Total,5,28831
+Q6,Gather,2,47804
+Q6,->  Parallel Seq Scan on json_montoldre_row,1,15935
+Q6,Total,3,63739
+Q7,Gather,2,81477
+Q7,->  Parallel Seq Scan on json_montoldre_row,1,27159
+Q7,Total,3,108636
+Q8,Gather,2,314943
+Q8,->  Parallel Seq Scan on json_montoldre_row,1,104981
+Q8,Total,3,419924
+Q9,Gather,2,314959
+Q9,->  Parallel Seq Scan on json_montoldre_row,1,104986
+Q9,Total,3,419945
+Q10,Gather,112,163
+Q10,->  Parallel Seq Scan on json_montoldre_row,47,54
+Q10,Total,159,217
+Q11,Gather,75,316703
+Q11,->  Parallel Seq Scan on json_montoldre_row,31,105568
+Q11,Total,106,422271
+Q12,Unique,4968,732
+Q12,->  Gather Merge,4968,1938
+Q12,->  Unique,2484,646
+Q12,->  Sort,2484,132673
+Q12,->  Parallel Seq Scan on json_montoldre_row,2484,132673
+Q12,Total,17388,268662
+Q13,Unique,4968,732
+Q13,->  Gather Merge,4968,1935
+Q13,->  Unique,2484,645
+Q13,->  Sort,2484,132673
+Q13,->  Parallel Seq Scan on json_montoldre_row,2484,132673
+Q13,Total,17388,268658
+Q14,Unique,62,7539
+Q14,->  Gather Merge,62,16927
+Q14,->  Unique,31,5642
+Q14,->  Sort,31,27264
+Q14,->  Parallel Seq Scan on json_montoldre_row,31,27264
+Q14,Total,217,84636
+Q15,GroupAggregate,22301,1
+Q15,->  Gather Merge,22302,2232047
+Q15,->  Sort,9292,744016
+Q15,->  Parallel Seq Scan on json_montoldre_row,9292,744016
+Q15,Total,63187,3720080
+Q16,Gather,22302,2232047
+Q16,->  Parallel Seq Scan on json_montoldre_row,9292,744016
+Q16,Total,31594,2976063
+Q17,Gather,22302,2232047
+Q17,->  Parallel Seq Scan on json_montoldre_row,9292,744016
+Q17,Total,31594,2976063
+Overall Total Planned Rows,161671
+Overall Total Actual Rows,11791711

@@ -1,0 +1,84 @@
+Query Number,Operator,Initial Cost,Final Cost
+Q1,Gather,1000.0,391422.81
+Q1,->  Parallel Seq Scan on json_montoldre_row,0.0,390422.71
+Q2,Gather,1000.0,391423.91
+Q2,->  Parallel Seq Scan on json_montoldre_row,0.0,390422.71
+Q3,Gather,1000.0,391444.81
+Q3,->  Parallel Seq Scan on json_montoldre_row,0.0,390422.71
+Q4,Gather Merge,391422.83,391424.0
+Q4,->  Sort,390422.81,390422.82
+Q4,->  Parallel Seq Scan on json_montoldre_row,0.0,390422.75
+Q5,Gather Merge,391424.65,391437.02
+Q5,->  Sort,390424.63,390424.76
+Q5,->  Parallel Seq Scan on json_montoldre_row,0.0,390423.11
+Q6,Gather,1000.0,391469.21
+Q6,->  Parallel Seq Scan on json_montoldre_row,0.0,390422.71
+Q7,Gather,1000.0,391506.01
+Q7,->  Parallel Seq Scan on json_montoldre_row,0.0,390422.71
+Q8,Gather,1000.0,391734.31
+Q8,->  Parallel Seq Scan on json_montoldre_row,0.0,390422.71
+Q9,Gather,1000.0,391740.61
+Q9,->  Parallel Seq Scan on json_montoldre_row,0.0,390422.71
+Q10,Bitmap Heap Scan on json_montoldre_row,5.55,600.0
+Q10,->  Bitmap Index Scan on index_data_cnrssname,0.0,5.55
+Q11,Gather,1000.0,374169.75
+Q11,->  Parallel Seq Scan on json_montoldre_row,0.0,362471.05
+Q12,Unique,367876.27,380952.0
+Q12,->  Gather Merge,367876.27,380680.55
+Q12,->  Unique,366876.25,367147.7
+Q12,->  Sort,366876.25,367011.98
+Q12,->  Parallel Seq Scan on json_montoldre_row,0.0,362606.78
+Q13,Unique,367876.27,380952.0
+Q13,->  Gather Merge,367876.27,380680.55
+Q13,->  Unique,366876.25,367147.7
+Q13,->  Sort,366876.25,367011.98
+Q13,->  Parallel Seq Scan on json_montoldre_row,0.0,362606.78
+Q14,Unique,364282.8,367075.45
+Q14,->  Gather Merge,364282.8,367017.47
+Q14,->  Unique,363282.77,363340.75
+Q14,->  Sort,363282.77,363311.76
+Q14,->  Parallel Seq Scan on json_montoldre_row,0.0,362500.04
+Q15,GroupAggregate,392040.93,395084.82
+Q15,->  Gather Merge,392040.93,394638.72
+Q15,->  Sort,391040.91,391064.15
+Q15,->  Parallel Seq Scan on json_montoldre_row,0.0,385787.34
+Q16,Gather,1000.0,388994.6
+Q16,->  Parallel Seq Scan on json_montoldre_row,0.0,385764.1
+Q17,Gather,1000.0,389064.31
+Q17,->  Parallel Seq Scan on json_montoldre_row,0.0,385833.81
+Total Initial Cost Q1,1000.0
+Total Final Cost Q1,781845.52
+Total Initial Cost Q2,1000.0
+Total Final Cost Q2,781846.62
+Total Initial Cost Q3,1000.0
+Total Final Cost Q3,781867.52
+Total Initial Cost Q4,781845.64
+Total Final Cost Q4,1172269.57
+Total Initial Cost Q5,781849.28
+Total Final Cost Q5,1172284.8900000001
+Total Initial Cost Q6,1000.0
+Total Final Cost Q6,781891.92
+Total Initial Cost Q7,1000.0
+Total Final Cost Q7,781928.72
+Total Initial Cost Q8,1000.0
+Total Final Cost Q8,782157.02
+Total Initial Cost Q9,1000.0
+Total Final Cost Q9,782163.3200000001
+Total Initial Cost Q10,5.55
+Total Final Cost Q10,605.55
+Total Initial Cost Q11,1000.0
+Total Final Cost Q11,736640.8
+Total Initial Cost Q12,1469505.04
+Total Final Cost Q12,1858399.01
+Total Initial Cost Q13,1469505.04
+Total Final Cost Q13,1858399.01
+Total Initial Cost Q14,1455131.1400000001
+Total Final Cost Q14,1823245.47
+Total Initial Cost Q15,1175122.77
+Total Final Cost Q15,1566575.03
+Total Initial Cost Q16,1000.0
+Total Final Cost Q16,774758.7
+Total Initial Cost Q17,1000.0
+Total Final Cost Q17,774898.12
+Overall Total Initial Cost,7142964.459999999
+Overall Total Final Cost,17211776.789999995
