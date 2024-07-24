@@ -1,0 +1,10 @@
+Combined Costs and Rows Differences:
+               Metric   Workload 1  Workload 2  Workload 3  Max Difference Max Workload
+0  Total Initial Cost   6550718.06  5227518.57       16.19      6550718.06   Workload 1
+1    Total Final Cost   7390570.30  8212046.15      348.90      8212046.15   Workload 2
+2  Total Planned Rows  12849811.00  4832102.00       28.00     12849811.00   Workload 1
+3   Total Actual Rows   5698526.00  2322146.00     -164.00      5698526.00   Workload 1
+
+Combined Execution Time Differences:
+           Metric  Workload 1  Workload 2  Workload 3  Max Difference Max Workload
+0  Total Exe Time   33185.759    1876.732     -613.37       33185.759   Workload 1

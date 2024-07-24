@@ -1,0 +1,13 @@
+Query Number,Execution Time (ms)
+Q1,40381.466
+Q2,51416.947
+Q3,51351.706
+Q4,52138.62
+Q5,55266.565
+Q6,52486.183
+Q7,52505.335
+Q8,52410.793
+Q9,52889.839
+
+Total Execution Time: 460847.454 ms
+Average Execution Time: 51205.27266666667 ms

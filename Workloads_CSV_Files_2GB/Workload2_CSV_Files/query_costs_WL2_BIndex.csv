@@ -1,0 +1,108 @@
+Query Number,Operator,Initial Cost,Final Cost
+Q1,Seq Scan on json_montoldre_row,0.0,367121.32
+Q2,Seq Scan on json_montoldre_row,0.0,385750.21
+Q3,Hash Join,234.17,387941.52
+Q3,->  Seq Scan on json_montoldre_row r,0.0,383887.32
+Q3,->  Hash,140.74,140.74
+Q3,->  Seq Scan on json_file f,0.0,140.74
+Q4,HashAggregate,545260.02,603766.36
+Q4,->  Seq Scan on json_montoldre_row,0.0,367121.32
+Q5,HashAggregate,539671.36,598177.69
+Q5,->  Seq Scan on json_montoldre_row,0.0,367121.32
+Q6,Sort,961775.21,967363.88
+Q6,->  HashAggregate,545260.02,603766.36
+Q6,->  Seq Scan on json_montoldre_row,0.0,367121.32
+Q7,Gather Merge,476624.93,693977.04
+Q7,->  Sort,475624.91,477953.52
+Q7,->  Parallel Seq Scan on json_montoldre_row,0.0,357806.88
+Q8,Gather,1000.0,369250.67
+Q8,->  Parallel Seq Scan on json_montoldre_row,0.0,367132.97
+Q9,Group,354445.06,355606.28
+Q9,->  Gather Merge,354445.06,355555.06
+Q9,->  Group,353445.04,353479.96
+Q9,->  Sort,353445.04,353456.68
+Q9,->  Parallel Seq Scan on json_montoldre_row,0.0,353161.3
+Q10,HashAggregate,539671.36,598177.69
+Q10,->  Seq Scan on json_montoldre_row,0.0,367121.32
+Q11,Hash Join,119.74,368561.7
+Q11,->  Seq Scan on json_montoldre_row r,0.0,361532.66
+Q11,->  Hash,102.39,102.39
+Q11,->  Bitmap Heap Scan on json_file f,19.04,102.39
+Q11,->  Bitmap Index Scan on idx_json_file_app_name,0.0,18.69
+Q12,Finalize Aggregate,358807.1,358807.11
+Q12,->  Gather,358806.88,358807.09
+Q12,->  Partial Aggregate,357806.88,357806.89
+Q12,->  Parallel Seq Scan on json_montoldre_row,0.0,348492.44
+Q13,Finalize Aggregate,358807.1,358807.11
+Q13,->  Gather,358806.88,358807.09
+Q13,->  Partial Aggregate,357806.88,357806.89
+Q13,->  Parallel Seq Scan on json_montoldre_row,0.0,348492.44
+Q14,Finalize Aggregate,358807.1,358807.11
+Q14,->  Gather,358806.88,358807.09
+Q14,->  Partial Aggregate,357806.88,357806.89
+Q14,->  Parallel Seq Scan on json_montoldre_row,0.0,348492.44
+Q15,Finalize Aggregate,358807.1,358807.11
+Q15,->  Gather,358806.88,358807.09
+Q15,->  Partial Aggregate,357806.88,357806.89
+Q15,->  Parallel Seq Scan on json_montoldre_row,0.0,348492.44
+Q16,HashAggregate,460964.29,488150.8
+Q16,->  Seq Scan on json_montoldre_row,0.0,376435.77
+Q17,Finalize Aggregate,356455.2,356455.21
+Q17,->  Gather,356454.99,356455.2
+Q17,->  Partial Aggregate,355454.99,355455.0
+Q17,->  Parallel Seq Scan on json_montoldre_row,0.0,350821.05
+Q18,Finalize Aggregate,358830.38,358830.39
+Q18,->  Gather,358830.17,358830.38
+Q18,->  Partial Aggregate,357830.17,357830.18
+Q18,->  Parallel Seq Scan on json_montoldre_row,0.0,357806.88
+Q19,Seq Scan on json_montoldre_row,0.0,385750.21
+Q20,Limit,699707.15,733483.53
+Q20,->  Hash Join,699707.15,1688609554.41
+Q20,->  Hash Join,234.17,367638.25
+Q20,->  Seq Scan on json_montoldre_row r,0.0,361532.66
+Q20,->  Hash,140.74,140.74
+Q20,->  Seq Scan on json_file f,0.0,140.74
+Q20,->  Hash,361532.66,361532.66
+Q20,->  Seq Scan on json_montoldre_row s,0.0,361532.66
+Total Initial Cost Q1,0.0
+Total Final Cost Q1,367121.32
+Total Initial Cost Q2,0.0
+Total Final Cost Q2,385750.21
+Total Initial Cost Q3,374.90999999999997
+Total Final Cost Q3,772110.3200000001
+Total Initial Cost Q4,545260.02
+Total Final Cost Q4,970887.6799999999
+Total Initial Cost Q5,539671.36
+Total Final Cost Q5,965299.01
+Total Initial Cost Q6,1507035.23
+Total Final Cost Q6,1938251.56
+Total Initial Cost Q7,952249.84
+Total Final Cost Q7,1529737.44
+Total Initial Cost Q8,1000.0
+Total Final Cost Q8,736383.6399999999
+Total Initial Cost Q9,1415780.2
+Total Final Cost Q9,1771259.28
+Total Initial Cost Q10,539671.36
+Total Final Cost Q10,965299.01
+Total Initial Cost Q11,241.17
+Total Final Cost Q11,730317.83
+Total Initial Cost Q12,1075420.8599999999
+Total Final Cost Q12,1423913.5299999998
+Total Initial Cost Q13,1075420.8599999999
+Total Final Cost Q13,1423913.5299999998
+Total Initial Cost Q14,1075420.8599999999
+Total Final Cost Q14,1423913.5299999998
+Total Initial Cost Q15,1075420.8599999999
+Total Final Cost Q15,1423913.5299999998
+Total Initial Cost Q16,460964.29
+Total Final Cost Q16,864586.5700000001
+Total Initial Cost Q17,1068365.18
+Total Final Cost Q17,1419186.4600000002
+Total Initial Cost Q18,1075490.72
+Total Final Cost Q18,1433297.83
+Total Initial Cost Q19,0.0
+Total Final Cost Q19,385750.21
+Total Initial Cost Q20,1761321.8699999999
+Total Final Cost Q20,1690795555.6500003
+Overall Total Initial Cost,14169109.590000002
+Overall Total Final Cost,1711726448.1400003

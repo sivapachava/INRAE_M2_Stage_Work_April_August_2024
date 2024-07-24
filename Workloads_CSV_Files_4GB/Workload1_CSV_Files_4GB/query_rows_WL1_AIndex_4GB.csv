@@ -1,0 +1,112 @@
+Query Number,Operator,Planned Rows,Actual Rows
+Q1,Aggregate,1,1
+Q1,->  Bitmap Heap Scan on json_montoldre_row,465,913
+Q1,->  Bitmap Index Scan on index_data_cnssrfname,465,913
+Q1,Total,931,1827
+Q2,Sort,25,25
+Q2,->  Finalize GroupAggregate,25,25
+Q2,->  Gather Merge,50,75
+Q2,->  Sort,25,25
+Q2,->  Partial HashAggregate,25,25
+Q2,->  Parallel Seq Scan on json_montoldre_row,1451467,1160885
+Q2,Total,1451617,1161060
+Q3,Aggregate,1,1
+Q3,->  Index Scan using index_data_cnssrfname on json_montoldre_row,3483521,3482656
+Q3,Total,3483522,3482657
+Q4,Unique,2903322,26
+Q4,->  Gather Merge,2903322,78
+Q4,->  Unique,1451661,26
+Q4,->  Sort,1451661,1161190
+Q4,->  Parallel Seq Scan on json_montoldre_row,1451661,1161190
+Q4,Total,10161627,2322510
+Q5,HashAggregate,3483986,41
+Q5,->  Seq Scan on json_montoldre_row,3483986,3483569
+Q5,Total,6967972,3483610
+Q6,Gather Merge,156004,229
+Q6,->  Sort,78002,76
+Q6,->  Parallel Seq Scan on json_montoldre_row,78002,76
+Q6,Total,312008,381
+Q7,Gather Merge,4668,26613
+Q7,->  Sort,2334,8871
+Q7,->  Parallel Seq Scan on json_montoldre_row,2334,8871
+Q7,Total,9336,44355
+Q8,Finalize GroupAggregate,17420,7
+Q8,->  Gather Merge,14516,21
+Q8,->  Partial GroupAggregate,7258,7
+Q8,->  Sort,7258,145097
+Q8,->  Parallel Seq Scan on json_montoldre_row,7258,145097
+Q8,Total,53710,290229
+Q9,Finalize GroupAggregate,3483986,6802
+Q9,->  Gather Merge,2903322,13571
+Q9,->  Partial GroupAggregate,1451661,4524
+Q9,->  Sort,1451661,1161190
+Q9,->  Parallel Seq Scan on json_montoldre_row,1451661,1161190
+Q9,Total,10742291,2347277
+Q10,Finalize GroupAggregate,43320,63176
+Q10,->  Gather Merge,86640,74102
+Q10,->  Sort,43320,24701
+Q10,->  Partial HashAggregate,43320,24701
+Q10,->  Parallel Seq Scan on json_montoldre_row,244718,206121
+Q10,Total,461318,392801
+Q11,Finalize GroupAggregate,3466566,648
+Q11,->  Gather Merge,2888804,1545
+Q11,->  Partial GroupAggregate,1444402,515
+Q11,->  Sort,1444402,1151499
+Q11,->  Parallel Seq Scan on json_montoldre_row,1444402,1151499
+Q11,Total,10688576,2305706
+Q12,Aggregate,1,1
+Q12,->  Nested Loop,3111,647
+Q12,->  Index Scan using json_file_pkey on json_file,7,7
+Q12,->  Index Scan using json_montoldre_row_pkey on json_montoldre_row,1684,92
+Q12,Total,4803,747
+Q13,HashAggregate,3483986,2153
+Q13,->  Hash Join,3483986,3483569
+Q13,->  Index Only Scan using json_montoldre_row_pkey on json_montoldre_row r,3483986,3483569
+Q13,->  Hash,7838,7838
+Q13,->  Seq Scan on json_file f,7838,7838
+Q13,Total,10467634,6984967
+Q14,Unique,25,26
+Q14,->  Gather Merge,50,78
+Q14,->  Unique,25,26
+Q14,->  Sort,50808,1161190
+Q14,->  Hash Join,50808,1161190
+Q14,->  Parallel Seq Scan on json_montoldre_row r,1451661,1161190
+Q14,->  Hash,7,7
+Q14,->  Index Only Scan using json_file_pkey on json_file,7,7
+Q14,Total,1553391,3483714
+Q15,Group,17413,242
+Q15,->  Gather Merge,14510,529
+Q15,->  Group,7255,176
+Q15,->  Sort,7255,297551
+Q15,->  Parallel Seq Scan on json_montoldre_row,7255,297551
+Q15,Total,53688,596049
+Q16,Bitmap Heap Scan on json_montoldre_row,465,913
+Q16,->  Bitmap Index Scan on index_data_cnssrfname,465,913
+Q16,Total,930,1826
+Q17,HashAggregate,3483986,115
+Q17,->  Gather,3483986,110034473
+Q17,->  ProjectSet,145166100,36678158
+Q17,->  Parallel Seq Scan on json_montoldre_row,1451661,1161190
+Q17,Total,153585733,147873936
+Q18,Finalize GroupAggregate,25,1
+Q18,->  Gather Merge,50,3
+Q18,->  Partial GroupAggregate,25,1
+Q18,->  Sort,1170,178680
+Q18,->  Parallel Seq Scan on json_montoldre_row,1170,178680
+Q18,Total,2440,357365
+Q19,Unique,468016,149417
+Q19,->  Gather Merge,468016,170112
+Q19,->  Unique,234008,56704
+Q19,->  Sort,234008,185574
+Q19,->  Hash Join,234008,185574
+Q19,->  Parallel Seq Scan on json_montoldre_row,234008,185574
+Q19,->  Hash,7838,7838
+Q19,->  Seq Scan on json_file,7838,7838
+Q19,Total,1887740,948631
+Q20,Finalize Aggregate,1,1
+Q20,->  Gather,2,3
+Q20,->  Partial Aggregate,1,1
+Q20,->  Parallel Seq Scan on json_montoldre_row,1451661,1161190
+Q20,Total,1451665,1161195
+Overall Total Planned Rows,213340932
+Overall Total Actual Rows,177240843

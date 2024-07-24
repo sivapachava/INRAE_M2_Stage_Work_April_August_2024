@@ -1,0 +1,82 @@
+Query Number,Operator,Planned Rows,Actual Rows
+Q1,Seq Scan on json_montoldre_row,3484188,3483569
+Q1,Total,3484188,3483569
+Q2,Index Scan using index_data_temp_value on json_montoldre_row,1926,229
+Q2,Total,1926,229
+Q3,Hash Join,1926,229
+Q3,->  Index Scan using index_data_temp_value on json_montoldre_row r,1926,229
+Q3,->  Hash,7838,7838
+Q3,->  Seq Scan on json_file f,7838,7838
+Q3,Total,19528,16134
+Q4,HashAggregate,3484188,2962
+Q4,->  Seq Scan on json_montoldre_row,3484188,3483569
+Q4,Total,6968376,3486531
+Q5,HashAggregate,3484188,2962
+Q5,->  Seq Scan on json_montoldre_row,3484188,3483569
+Q5,Total,6968376,3486531
+Q6,Sort,3484188,2962
+Q6,->  HashAggregate,3484188,2962
+Q6,->  Seq Scan on json_montoldre_row,3484188,3483569
+Q6,Total,10452564,3489493
+Q7,Gather Merge,2903490,3483569
+Q7,->  Sort,1451745,1161190
+Q7,->  Parallel Seq Scan on json_montoldre_row,1451745,1161190
+Q7,Total,5806980,5805949
+Q8,Index Scan using index_data_temp_value on json_montoldre_row,2337,483
+Q8,Total,2337,483
+Q9,Group,17421,739
+Q9,->  Gather Merge,14518,1950
+Q9,->  Group,7259,650
+Q9,->  Sort,7259,185574
+Q9,->  Parallel Seq Scan on json_montoldre_row,7259,185574
+Q9,Total,53716,374487
+Q10,HashAggregate,3484188,2962
+Q10,->  Seq Scan on json_montoldre_row,3484188,3483569
+Q10,Total,6968376,3486531
+Q11,Hash Join,957063,3483569
+Q11,->  Seq Scan on json_montoldre_row r,3484188,3483569
+Q11,->  Hash,2153,2153
+Q11,->  Seq Scan on json_file f,2153,2153
+Q11,Total,4445557,6971444
+Q12,Finalize Aggregate,1,1
+Q12,->  Gather,2,3
+Q12,->  Partial Aggregate,1,1
+Q12,->  Parallel Seq Scan on json_montoldre_row,1451745,1161190
+Q12,Total,1451749,1161195
+Q13,Finalize Aggregate,1,1
+Q13,->  Gather,2,3
+Q13,->  Partial Aggregate,1,1
+Q13,->  Parallel Seq Scan on json_montoldre_row,1451745,1161190
+Q13,Total,1451749,1161195
+Q14,Result,1,1
+Q14,->  Limit,1,1
+Q14,->  Index Scan Backward using index_data_temp_value on json_montoldre_row,607759,1
+Q14,Total,607761,3
+Q15,Result,1,1
+Q15,->  Limit,1,1
+Q15,->  Index Scan using index_data_temp_value on json_montoldre_row,607759,1
+Q15,Total,607761,3
+Q16,HashAggregate,1161396,47456
+Q16,->  Seq Scan on json_montoldre_row,1161396,177624
+Q16,Total,2322792,225080
+Q17,Finalize Aggregate,1,1
+Q17,->  Gather,2,3
+Q17,->  Partial Aggregate,1,1
+Q17,->  Parallel Seq Scan on json_montoldre_row,1444486,202839
+Q17,Total,1444490,202844
+Q18,Aggregate,1,1
+Q18,->  Index Scan using index_data_temp_value on json_montoldre_row,381,606
+Q18,Total,382,607
+Q19,Index Scan using index_data_temp_value on json_montoldre_row,1926,229
+Q19,Total,1926,229
+Q20,Limit,500000,500000
+Q20,->  Hash Join,60697830097,500000
+Q20,->  Hash Join,3484188,3483569
+Q20,->  Seq Scan on json_montoldre_row r,3484188,3483569
+Q20,->  Hash,7838,7838
+Q20,->  Seq Scan on json_file f,7838,7838
+Q20,->  Hash,3484188,3483569
+Q20,->  Seq Scan on json_montoldre_row s,3484188,3483569
+Q20,Total,60712282525,14949952
+Overall Total Planned Rows,60765343059
+Overall Total Actual Rows,48302489

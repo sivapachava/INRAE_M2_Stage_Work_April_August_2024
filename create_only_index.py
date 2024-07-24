@@ -1,6 +1,6 @@
 import psycopg2
 
-conn = psycopg2.connect(dbname="postgres", user="postgres", password='*****', port='5432')
+conn = psycopg2.connect(dbname="testupload2GB", user="postgres", password='manvim', port='5432')
 
 
 def create_index(conn, index_name, table, column, predicate=None):
@@ -17,10 +17,11 @@ def create_index(conn, index_name, table, column, predicate=None):
         conn.commit()
 
 # Example: Creating partial indexes
-#create_index(conn, "index_data_temperature_value", "connecsens.json_montoldre_row", "data ->> 'data-temperature'")
-create_index(conn, "index_data_CNRSSName", "connecsens.json_montoldre_row", "data ->> 'data-CNSSRFDataTypeName'")
+#create_index(conn, "index_data_temp_value", "connecsens.json_montoldre_row", "data ->> 'data-temperature'")
+#create_index(conn, "index_data_CNSSRFName", "connecsens.json_montoldre_row", "data ->> 'data-CNSSRFDataTypeName'")
 #create_index(conn, "index_data_TimeStampUTC", "connecsens.json_montoldre_row", "data ->> 'data-node-timestampUTC'")
 create_index(conn, "index_data_servertimestamp", "connecsens.json_montoldre_row", "data ->> 'servertimestampUTC'")
+create_index(conn, "index_data_nodevoltage", "connecsens.json_montoldre_row", "data ->> 'data-node-batteryVoltage'")
 
 conn.close()
 

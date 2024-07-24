@@ -1,0 +1,30 @@
+Query Number,Operator,Planned Rows,Actual Rows
+Q1,Update on json_montoldre_row,0,0
+Q1,->  Seq Scan on json_montoldre_row,22217,0
+Q1,Total,22217,0
+Q2,Update on json_montoldre_row,0,0
+Q2,->  Seq Scan on json_montoldre_row,22217,324
+Q2,Total,22217,324
+Q3,Update on json_montoldre_row,0,0
+Q3,->  Seq Scan on json_montoldre_row,22217,595
+Q3,Total,22217,595
+Q4,Update on json_montoldre_row,0,0
+Q4,->  Seq Scan on json_montoldre_row,22217,595
+Q4,Total,22217,595
+Q5,Update on json_montoldre_row,0,0
+Q5,->  Seq Scan on json_montoldre_row,22217,595
+Q5,Total,22217,595
+Q6,Update on json_montoldre_row,0,0
+Q6,->  Seq Scan on json_montoldre_row,22217,595
+Q6,Total,22217,595
+Q7,Update on json_montoldre_row,0,0
+Q7,->  Seq Scan on json_montoldre_row,22217,595
+Q7,Total,22217,595
+Q8,Update on json_montoldre_row,0,0
+Q8,->  Seq Scan on json_montoldre_row,22217,614
+Q8,Total,22217,614
+Q9,Update on json_montoldre_row,0,0
+Q9,->  Seq Scan on json_montoldre_row,22217,0
+Q9,Total,22217,0
+Overall Total Planned Rows,199953
+Overall Total Actual Rows,3913

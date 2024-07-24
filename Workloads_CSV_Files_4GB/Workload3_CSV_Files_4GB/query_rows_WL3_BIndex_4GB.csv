@@ -1,0 +1,67 @@
+Query Number,Operator,Planned Rows,Actual Rows
+Q1,Gather,3,387
+Q1,->  Parallel Seq Scan on json_montoldre_row,1,129
+Q1,Total,4,516
+Q2,Gather,3,962
+Q2,->  Parallel Seq Scan on json_montoldre_row,1,321
+Q2,Total,4,1283
+Q3,Gather,11,47621
+Q3,->  Parallel Seq Scan on json_montoldre_row,5,15874
+Q3,Total,16,63495
+Q4,Gather Merge,2,3978
+Q4,->  Sort,1,1326
+Q4,->  Parallel Seq Scan on json_montoldre_row,1,1326
+Q4,Total,4,6630
+Q5,Gather Merge,2,103849
+Q5,->  Sort,1,34616
+Q5,->  Parallel Seq Scan on json_montoldre_row,1,34616
+Q5,Total,4,173081
+Q6,Gather,3,63472
+Q6,->  Parallel Seq Scan on json_montoldre_row,1,21157
+Q6,Total,4,84629
+Q7,Gather,3,84547
+Q7,->  Parallel Seq Scan on json_montoldre_row,1,28182
+Q7,Total,4,112729
+Q8,Gather,3,319583
+Q8,->  Parallel Seq Scan on json_montoldre_row,1,106528
+Q8,Total,4,426111
+Q9,Gather,3,319600
+Q9,->  Parallel Seq Scan on json_montoldre_row,1,106533
+Q9,Total,4,426133
+Q10,Gather,174,767
+Q10,->  Parallel Seq Scan on json_montoldre_row,72,256
+Q10,Total,246,1023
+Q11,Gather,116,321000
+Q11,->  Parallel Seq Scan on json_montoldre_row,48,107000
+Q11,Total,164,428000
+Q12,Unique,7742,2961
+Q12,->  Gather Merge,7742,7702
+Q12,->  Unique,3871,2567
+Q12,->  Sort,3871,202839
+Q12,->  Parallel Seq Scan on json_montoldre_row,3871,202839
+Q12,Total,27097,418908
+Q13,Unique,7742,2961
+Q13,->  Gather Merge,7742,7750
+Q13,->  Unique,3871,2583
+Q13,->  Sort,3871,202839
+Q13,->  Parallel Seq Scan on json_montoldre_row,3871,202839
+Q13,Total,27097,418972
+Q14,Unique,96,7553
+Q14,->  Gather Merge,96,17021
+Q14,->  Unique,48,5674
+Q14,->  Sort,48,28198
+Q14,->  Parallel Seq Scan on json_montoldre_row,48,28198
+Q14,Total,336,86644
+Q15,GroupAggregate,34751,1
+Q15,->  Gather Merge,34754,3482389
+Q15,->  Sort,14481,1160796
+Q15,->  Parallel Seq Scan on json_montoldre_row,14481,1160796
+Q15,Total,98467,5803982
+Q16,Gather,34754,3482389
+Q16,->  Parallel Seq Scan on json_montoldre_row,14481,1160796
+Q16,Total,49235,4643185
+Q17,Gather,34754,3482389
+Q17,->  Parallel Seq Scan on json_montoldre_row,14481,1160796
+Q17,Total,49235,4643185
+Overall Total Planned Rows,251925
+Overall Total Actual Rows,17738506

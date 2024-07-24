@@ -1,0 +1,269 @@
+import re
+from itertools import combinations
+import csv
+
+class WorkloadAnalyzer:
+    def __init__(self, queries=None, file_path=None):
+        if file_path:
+            self.queries = self.read_queries_from_file(file_path)
+        else:
+            self.queries = queries
+        self.columns = []
+
+        ####
+    #   def read_queries_from_file(self, file_path):
+    #      with open(file_path, 'r') as file:
+    #            queries = file.read()
+
+            # Assuming each query in the file is separated by a semicolon and a newline
+    #        queries = queries.split(';')
+    #        queries = [query.strip() for query in queries if query.strip()]
+
+    #    return queries
+        #### 
+    
+    def read_queries_from_file(self, file_path):
+        with open(file_path, 'r') as file:
+            queries = file.read()
+
+            # Remove comments in file if it has any 
+            queries = re.sub(r'--.*', '', queries)
+
+            # Assuming each query in the file is separated by a semicolon and a newline
+            queries = queries.split(';')
+            queries = [query.strip() for query in queries if query.strip()]
+
+        return queries
+
+    def extract_columns(self):
+        for query in self.queries:
+
+            # re.findall(): This function finds all non-overlapping occurrences of a pattern in the input string (query) and returns them as a list
+            #r denotes a raw string literal in Python, often used with regular expressions to avoid unintended escape sequences
+            #SELECT\s+ matches the word "SELECT" followed by one or more whitespace characters
+            #(?:DISTINCT\s+)? is a non-capturing group (?: ... )? that optionally matches the word "DISTINCT" followed by one or more whitespace characters
+            #\s*(\w+)\s*: Zero or more whitespace characters followed by a word character (captured group)
+            #\(?(.*?)\)?: Zero or one opening parenthesis, followed by any characters (captured group)
+            #\s+: Matches one or more whitespace characters (non-capturing group)
+            #(?:AS\s+\w+\s+)?: non-capturing group that optionally matches the word "AS" followed by one or more word characters
+            #re.IGNORECASE | re.DOTALL: These flags make the search case insensitive and enable the dot to match any character, including newline characters
+
+            col_match = re.findall(r'SELECT\s+(?:DISTINCT\s+)?(?:\s*(\w+)\s*|\(?(.*?)\)?)\s+(?:AS\s+\w+\s+)?FROM', query, re.IGNORECASE | re.DOTALL)
+            
+            #([\w\.\s,]+): This is a capturing group that matches one or more occurrences of word characters (\w), dots (.), whitespace characters (\s), or commas (,)
+
+            table_match = re.findall(r'FROM\s+([\w\.\s,]+)', query, re.IGNORECASE)
+
+            #searches for table names and join conditions specified in JOIN clauses of an SQL query
+            #([\w\.\s,]+): A capturing group that matches table names
+            #\s+ON\s+: The word "ON" surrounded by whitespace
+            #(.*?): A capturing group that matches any character (non-greedy), which represents the join condition
+            #(?:\s+WHERE|\s+GROUP BY|\s+ORDER BY|\s+LIMIT|$): This is a non-capturing group that matches one of the specified keywords (WHERE, GROUP BY, ORDER BY, LIMIT) or the end of the string
+            
+            join_match = re.findall(r'JOIN\s+([\w\.\s,]+)\s+ON\s+(.*?)(?:\s+WHERE|\s+GROUP BY|\s+ORDER BY|\s+LIMIT|$)', query, re.IGNORECASE | re.DOTALL)
+            
+            #searches for conditions specified in the WHERE clause of an SQL query
+            #(.*?): A capturing group that matches any character (non-greedy), representing the conditions
+            #(GROUP BY|ORDER BY|LIMIT|$): This is a non-capturing group that matches one of the specified keywords (GROUP BY, ORDER BY, LIMIT) or the end of the string
+
+            where_match = re.findall(r'WHERE\s+(.*?)(GROUP BY|ORDER BY|LIMIT|$)', query, re.IGNORECASE | re.DOTALL)
+            
+            #searches for field names specified in a particular format (data->>'fieldname') within the SQL query
+            #\s*->>\s*: Matches "->>" with optional whitespace before and after it
+            #'([^']+)': A capturing group that matches a single quote followed by one or more characters that are not a single quote, followed by another single quote, and This captures the field name
+            
+            field_match = re.findall(r"data\s*->>\s*'([^']+)'", query, re.IGNORECASE)
+
+            col_names = []
+            table_names = []
+            field_names = []
+
+            if col_match:
+                for col_tuple in col_match:
+                    col = col_tuple[0] if col_tuple[0] else col_tuple[1]
+
+                    if 'SUM(' not in col and 'AVG(' not in col and 'MAX(' not in col and 'MIN(' not in col:
+                        if 'data ->>' not in col and 'data->>' not in col:
+                            col_names.append(col.strip())
+
+            if table_match:
+                #Splits the matched tables by commas, removing leading/trailing whitespace and replacing newline characters with spaces
+                raw_tables = re.split(r',\s*', table_match[0].replace('\n', ' ').strip())
+
+                #Iterates over each table in raw_tables, splitting it again using re.split() to remove any trailing clauses (WHERE, GROUP BY, ORDER BY, LIMIT, or JOIN), and then appends the resulting table names to table_names
+                for table in raw_tables:
+                    table = re.split(r'\s+(WHERE|GROUP BY|ORDER BY|LIMIT|JOIN)\b', table)[0].strip()
+                    table_names.append(table)
+
+            if join_match:
+                #Iterates over each match in join_match. Appends the first element of each match (the table name) to table_names. 
+                for join in join_match:
+                    table_names.append(join[0].strip())
+                    on_clause = join[1]
+
+                    #Extracts the conditions from the ON clauses and appends them to col_names using a regular expression pattern
+                    on_cols = re.findall(r'\b(\w+\.\w+)\b', on_clause)
+                    col_names.extend(on_cols)
+
+            if where_match:
+                #Splits the matched WHERE clause by AND, removing leading/trailing whitespace and replacing newline characters with spaces
+                where_cols = re.split(r'\s+AND\s+', where_match[0][0].replace('\n', ' ').strip())
+
+                #Searches for column names using a regular expression pattern and appends them to col_names. 
+                for col in where_cols:
+                    match = re.search(r'\b(\w+\.\w+)\b', col)
+
+                    ##Extracts column names from equality conditions (col1 = col2) and appends them to col_names
+                    if match:
+                        col_names.append(match.group(1))
+                        equals_match = re.findall(r'(\w+\.\w+)\s*=\s*(\w+\.\w+)', col)
+                        for eq_match in equals_match:
+                            col_names.extend(eq_match)
+
+            if field_match:
+                field_names = field_match
+
+            # Remove duplicates from col_names
+            col_names = list(set(col_names))
+
+            for col in col_names:
+                self.columns.append((col))
+
+            for field in field_names:
+                self.columns.append((f"data ->> '{field}'"))
+
+        #print(self.columns)
+        return self.columns
+    
+
+class FrequencyCalculator:
+    def __init__(self, columns):
+        self.columns = columns
+
+    def calculate_frequency(self):
+        frequency_dict = {}
+        for col in self.columns:
+
+            # Create a unique key for each column
+            column_key = (col)
+            if column_key not in frequency_dict:
+                frequency_dict[column_key] = 1
+            else:
+                frequency_dict[column_key] += 1
+
+        #print(frequency_dict)
+        return frequency_dict
+    
+
+class CandidateIndexSelector:
+    def __init__(self, frequencies):
+        self.frequencies = frequencies
+
+    def select_candidate_indices(self):
+        candidate_indices = []
+        for column, frequency in self.frequencies.items():
+
+            # Select columns that repeat more than number given in condiation
+            if frequency >= 3 and '*' not in column and 'COUNT(*)' not in column:  
+                candidate_indices.append((column, frequency))
+
+        #print(f"candidate_indices:{candidate_indices}")        
+        return candidate_indices
+    
+
+class CardinalityChecker:
+    def __init__(self, cardinality_csv_path):
+        self.cardinality = self._parse_cardinality_csv(cardinality_csv_path)
+    
+    def _parse_cardinality_csv(self, cardinality_csv_path):
+        cardinality = {}
+
+        with open(cardinality_csv_path, newline='', encoding='utf-8') as csvfile: #encoding='utf-8-sig') 
+            reader = csv.DictReader(csvfile, delimiter=';')
+
+            for row in reader:
+                column_name = row.get('column') or row.get('\ufeffcolumn')
+                cardinality_value = row.get('cardinality')
+
+                if column_name and cardinality_value:
+                    cardinality[column_name] = int(cardinality_value)
+                else:
+                    print("Invalid row in CSV:", row)
+
+        #print(cardinality)            
+        return cardinality
+
+    def check_cardinality(self, candidate_indices):
+        CardCount = []
+
+        for column, frequency in candidate_indices:
+            column_name = column.split(' ->> ')[-1].strip("'")
+            cardinality_value = self.cardinality.get(column_name, None)
+
+            if cardinality_value is not None:
+                CardCount.append((column, frequency, cardinality_value))
+            else:
+                CardCount.append((column, frequency, 'Cardinality not found'))
+
+        #print(CardCount)
+        return CardCount
+    
+
+class ProcessIndexSelector:
+    def __init__(self, counts):
+        self.counts = counts
+
+    def select_process_indices(self):
+        process_indices = []
+        for column, frequency, count in self.counts:
+
+            #select final indexes which have cardinality morethan number given in condiation
+            if isinstance(count, int) and count >= 5:
+                process_indices.append((column, frequency, count))
+
+        #print(process_indices)
+        return process_indices
+    
+
+class IndexConfigurationSelector:
+    def __init__(self, process_indices):
+        self.process_indices = process_indices
+
+    def get_index_configurations(self):
+        # Generate all possible index configurations upto limit we provide
+        all_configurations = []
+        for r in range(1, 3):
+            all_configurations.extend(combinations(self.process_indices, r))
+
+        #print(all_configurations)    
+        return all_configurations
+    
+
+def main(file_path, cardinality_csv_path):
+    analyzer = WorkloadAnalyzer(file_path=file_path)
+    columns = analyzer.extract_columns()
+
+    frequency_calculator = FrequencyCalculator(columns)
+    frequencies = frequency_calculator.calculate_frequency()
+
+    candidate_index_selector = CandidateIndexSelector(frequencies)
+    candidate_indices = candidate_index_selector.select_candidate_indices()
+
+    checker = CardinalityChecker(cardinality_csv_path)
+    results = checker.check_cardinality(candidate_indices)
+
+    counter = ProcessIndexSelector(results)
+    process_indices = counter.select_process_indices()
+
+    index_configuration_selector = IndexConfigurationSelector(process_indices)
+    index_configurations = index_configuration_selector.get_index_configurations()
+
+
+    # Print configurations
+    for config in index_configurations:
+        print(config)
+
+# file paths
+file_path = 'Workload1.sql'
+cardinality_csv_path = "cardinality_file_f.csv"
+main(file_path, cardinality_csv_path)
