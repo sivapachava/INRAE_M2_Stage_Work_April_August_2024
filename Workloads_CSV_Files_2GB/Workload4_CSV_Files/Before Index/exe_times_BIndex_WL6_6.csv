@@ -1,8 +1,8 @@
 query_number,execution_time
-1,45.684652
-2,45.334402
-3,46.022934
-4,45.032669
-5,45.151626
-Total Execution Time:,227.226283
-Average Execution Time:,45.4452566
+1,50.687442
+2,54.961117
+3,52.121752
+4,55.557419
+5,54.59533
+Total Execution Time:,267.92306
+Average Execution Time:,53.58461200000001

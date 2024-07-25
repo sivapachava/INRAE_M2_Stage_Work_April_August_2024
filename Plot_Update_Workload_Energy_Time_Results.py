@@ -4,15 +4,15 @@ import numpy as np
 
 # Data preparation
 data_workloads_energy = {
-    'Metric': ['Workload1', 'Workload2',  'Workload3'],
-    'Before Index': [1703.2, 852.8, 1440.6],
-    'After Index':  [1598.6, 840.8, 1783.4]
+    'Metric': ['2GB Database', '4GB Database'],
+    'Before Index': [1420.0, 1709.6],
+    'After Index':  [1419.8, 2273.0]
 }
 
 data_workloads_time = {
-    'Metric': ['Workload1', 'Workload2', 'Workload3'],
-    'Before Index': [267.79, 193.84, 157.04],
-    'After Index':  [256.70, 170.88, 193.14]
+    'Metric': ['Workload1', 'Workload2'],
+    'Before Index': [231.73, 371.90],
+    'After Index':  [242.06, 371.52]
 }
 
 # Create dataframes
@@ -38,7 +38,7 @@ def plot_grouped_bar_chart(df, workload_name, metric):
     plt.xticks(index + bar_width / 2, df['Metric'], rotation=0, ha='center', fontsize = 20)
     plt.yticks(fontsize=20)
     #plt.legend()
-    legend = plt.legend(fontsize=15, loc='upper center')
+    legend = plt.legend(fontsize=15, loc='upper left')
     legend.set_title(legend.get_title().get_text(), prop={'size': 15})
 
     # Add value labels on top of the bars
@@ -50,7 +50,7 @@ def plot_grouped_bar_chart(df, workload_name, metric):
 
     plt.grid(False)  # Disable grid lines
     plt.tight_layout()
-    plt.savefig(f'{workload_name}_{metric}_comparison.png')
+    plt.savefig(f'{workload_name}_{metric}_UPDATE_comp.png')
     plt.show()
 
 # Plot grouped bar charts for energy consumption

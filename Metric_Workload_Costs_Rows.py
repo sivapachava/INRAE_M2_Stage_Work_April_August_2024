@@ -21,8 +21,8 @@ data_workload2_costs_rows = {
 
 data_workload2_time = {
     'Metric': ['Total Exe Time'],
-    'Run 1': [182044.707],
-    'Run 2': [180167.975]
+    'Run 1': [217821.771],
+    'Run 2': [175716.829]
 }
 
 data_workload3_costs_rows = {
