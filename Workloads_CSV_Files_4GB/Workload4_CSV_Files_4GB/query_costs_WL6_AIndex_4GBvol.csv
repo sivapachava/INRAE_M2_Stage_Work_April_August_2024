@@ -1,0 +1,23 @@
+Query Number,Operator,Initial Cost,Final Cost
+Q1,Update on json_montoldre_row,0.0,726434.05
+Q1,->  Seq Scan on json_montoldre_row,0.0,726434.05
+Q2,Update on json_montoldre_row,0.0,726434.05
+Q2,->  Seq Scan on json_montoldre_row,0.0,726434.05
+Q3,Update on json_montoldre_row,0.0,726434.05
+Q3,->  Seq Scan on json_montoldre_row,0.0,726434.05
+Q4,Update on json_montoldre_row,0.0,726434.05
+Q4,->  Seq Scan on json_montoldre_row,0.0,726434.05
+Q5,Update on json_montoldre_row,0.0,726434.05
+Q5,->  Seq Scan on json_montoldre_row,0.0,726434.05
+Total Initial Cost Q1,0.0
+Total Final Cost Q1,1452868.1
+Total Initial Cost Q2,0.0
+Total Final Cost Q2,1452868.1
+Total Initial Cost Q3,0.0
+Total Final Cost Q3,1452868.1
+Total Initial Cost Q4,0.0
+Total Final Cost Q4,1452868.1
+Total Initial Cost Q5,0.0
+Total Final Cost Q5,1452868.1
+Overall Total Initial Cost,0.0
+Overall Total Final Cost,7264340.499999999

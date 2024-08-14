@@ -1,0 +1,17 @@
+Query Number,Operator,Initial Cost,Final Cost
+Q1,Finalize Aggregate,571367.45,571367.46
+Q1,->  Gather,571367.24,571367.45
+Q1,->  Partial Aggregate,570367.24,570367.25
+Q1,->  Parallel Seq Scan on json_montoldre_row,0.0,570349.1
+Q1,Total,1713101.93,2283451.26
+Q2,Sort,1550293.24,1558996.26
+Q2,->  HashAggregate,890551.12,981660.86
+Q2,->  Seq Scan on json_montoldre_row,0.0,613142.36
+Q2,Total,2440844.36,3153799.48
+Q3,Aggregate,3362401.19,3362401.2
+Q3,->  Gather Merge,2939551.11,3344995.15
+Q3,->  Sort,2938551.09,2942177.34
+Q3,->  Parallel Seq Scan on json_montoldre_row,0.0,573975.72
+Q3,Total,9240503.39,10223549.41
+Overall Total Initial Cost,13394449.68
+Overall Total Final Cost,15660800.150000002

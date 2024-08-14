@@ -1,0 +1,17 @@
+Query Number,Operator,Planned Rows,Actual Rows
+Q1,Finalize Aggregate,1,1
+Q1,->  Gather,2,3
+Q1,->  Partial Aggregate,1,1
+Q1,->  Parallel Seq Scan on json_montoldre_row,7253,304
+Q1,Total,7257,309
+Q2,Sort,3481208,25
+Q2,->  HashAggregate,3481208,25
+Q2,->  Seq Scan on json_montoldre_row,3481208,3482656
+Q2,Total,10443624,3482706
+Q3,Aggregate,1,1
+Q3,->  Gather Merge,3481208,3482656
+Q3,->  Sort,1450503,1160885
+Q3,->  Parallel Seq Scan on json_montoldre_row,1450503,1160885
+Q3,Total,6382215,5804427
+Overall Total Planned Rows,16833096
+Overall Total Actual Rows,9287442

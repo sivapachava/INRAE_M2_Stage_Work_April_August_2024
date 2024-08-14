@@ -58,13 +58,8 @@ with open(execution_csv_file_path, mode='w', newline='') as exec_csv_file, \
 
     for i, query in enumerate(queries):
         query_number = f"Q{i+1}"
-
-        # Execute EXPLAIN ANALYZE for the query
         cursor.execute("EXPLAIN ANALYZE " + query)
-
-        # Fetch the execution plan
         rows = cursor.fetchall()
-
         total_initial_cost_query = 0.0
         total_final_cost_query = 0.0
         query_total_planned_rows = 0
@@ -97,7 +92,6 @@ with open(execution_csv_file_path, mode='w', newline='') as exec_csv_file, \
         # Write the total costs to the costs CSV
         cost_writer.writerow([query_number, 'Total', total_initial_cost_query, total_final_cost_query])
 
-
         for row in rows:
             if "rows=" in row[0]:
                 parts = row[0].split(' (cost=')
@@ -120,18 +114,18 @@ with open(execution_csv_file_path, mode='w', newline='') as exec_csv_file, \
                 row_writer.writerow([query_number, operator, planned_rows, actual_rows])
                 print(f"{query_number} {operator}: Planned Rows: {planned_rows} Actual Rows: {actual_rows}")
 
-        #initial_costs[query_number] = total_initial_cost_query
-        #final_costs[query_number] = total_final_cost_query
-
+        # Write the total rows to the rows CSV
         row_writer.writerow([query_number, 'Total', query_total_planned_rows, query_total_actual_rows])
+
         total_planned_rows += query_total_planned_rows
         total_actual_rows += query_total_actual_rows
 
-
         total_execution_time += execution_time
         average_execution_time = total_execution_time / len(queries)
+
     
     with open(execution_csv_file_path, mode='a', newline='') as exec_csv_file:
+        
         exec_writer.writerow(['Total Execution Time', total_execution_time])
         exec_writer.writerow(['Average Execution Time', average_execution_time])
 
